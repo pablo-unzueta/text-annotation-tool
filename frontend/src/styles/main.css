@@ -1,0 +1,83 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.document-card {
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.document-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.annotation-container {
+  position: relative;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  background-color: white;
+}
+
+.text-content {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.highlight {
+  background-color: rgba(255, 230, 0, 0.4);
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.highlight.selected {
+  background-color: rgba(255, 165, 0, 0.6);
+}
+
+.highlight.correct {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+.highlight.incorrect {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+.annotation-sidebar {
+  border-left: 1px solid #dee2e6;
+  padding-left: 1rem;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.annotation-form {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-bar {
+  background-color: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

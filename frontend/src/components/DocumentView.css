@@ -1,0 +1,12 @@
+.keyboard-shortcut-box {
+  position: fixed !important; /* Use important if needed based on testing */
+  bottom: 10px;
+  left: 10px;
+  padding: 10px;
+  background-color: rgba(248, 249, 250, 0.9);
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  z-index: 1000;
+  max-width: 850px;
+  /* Add any other styles needed */
+} 
