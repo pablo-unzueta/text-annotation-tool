@@ -50,24 +50,9 @@ function KeyboardShortcuts({
       }
 
       // Save annotation
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-        if (selectedAnnotation) {
-          updateAnnotation();
-        } else if (selectedText) {
-          createAnnotation();
-        }
-        e.preventDefault();
-      }
-
-      // Provide feedback
       if (selectedAnnotation) {
-        if (e.key === 'c' || e.key === 'C') {
-          // Mark as correct
-          provideFeedback(selectedAnnotation.id, true);
-          e.preventDefault();
-        } else if (e.key === 'x' || e.key === 'X') {
-          // Mark as incorrect
-          provideFeedback(selectedAnnotation.id, false);
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+          updateAnnotation();
           e.preventDefault();
         } else if (e.key === 'd' || e.key === 'D') {
           // Delete annotation

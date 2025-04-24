@@ -52,8 +52,6 @@ function KeyboardShortcutsGuide() {
         <div className="mb-2">
           <strong>Annotation:</strong>
           <div><kbd>Ctrl</kbd>+<kbd>S</kbd> - Save annotation</div>
-          <div><kbd>C</kbd> - Mark as correct</div>
-          <div><kbd>X</kbd> - Mark as incorrect</div>
           <div><kbd>D</kbd> - Delete annotation</div>
           <div><kbd>Esc</kbd> - Cancel selection</div>
         </div>

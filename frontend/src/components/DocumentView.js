@@ -161,18 +161,6 @@ function DocumentView() {
     }
   }, [selectedAnnotation]);
 
-  const provideFeedback = useCallback(async (annotationId, isCorrect) => {
-    try {
-      await axios.post(`/api/annotations/${annotationId}/feedback?is_correct=${isCorrect}`);
-      const updateList = (list) => list.map(ann => ann.id === annotationId ? { ...ann, is_correct: isCorrect } : ann);
-      setAnnotations(updateList);
-      setFilteredAnnotations(updateList);
-    } catch (error) {
-      console.error('Error providing feedback:', error);
-      setError('Error providing feedback. Please try again.');
-    }
-  }, []);
-
   const selectAnnotation = useCallback((annotation) => {
     setSelectedAnnotation(annotation);
     setAnnotationText(annotation?.annotation_text || '');
@@ -325,7 +313,7 @@ function DocumentView() {
     return contentParts;
   };
 
-  // 3. Add useEffect to focus the input when selectedText changes
+  // Fix the useEffect to focus the textarea
   useEffect(() => {
     // If text has been selected and the input ref is available
     if (selectedText && annotationInputRef.current) {
@@ -353,7 +341,6 @@ function DocumentView() {
         annotations={sortedAndFilteredAnnotations}
         selectedAnnotation={selectedAnnotation}
         setSelectedAnnotation={selectAnnotation}
-        provideFeedback={provideFeedback}
         createAnnotation={createAnnotation}
         updateAnnotation={updateAnnotation}
         selectedText={selectedText}
@@ -548,23 +535,6 @@ function DocumentView() {
                     <Card.Text className="mb-3">
                       <strong>Annotation:</strong> {annotation.annotation_text || <em>No annotation provided</em>}
                     </Card.Text>
-                    
-                    <div className="feedback-buttons">
-                      <Button 
-                        variant={annotation.is_correct === true ? "success" : "outline-success"} 
-                        size="sm"
-                        onClick={() => provideFeedback(annotation.id, true)}
-                      >
-                        <FaCheck /> Correct
-                      </Button>
-                      <Button 
-                        variant={annotation.is_correct === false ? "danger" : "outline-danger"} 
-                        size="sm"
-                        onClick={() => provideFeedback(annotation.id, false)}
-                      >
-                        <FaTimes /> Incorrect
-                      </Button>
-                    </div>
                   </Card.Body>
                 </Card>
               ))
@@ -579,10 +549,8 @@ function DocumentView() {
             <strong>Keyboard Shortcuts:</strong><br />
             <span>Next Doc: <kbd>J</kbd></span> |
             <span> Prev Doc: <kbd>K</kbd></span> |
-            <span> Cycle Annots: <kbd>Tab</kbd></span> |
+            <span> Cycle Annotations: <kbd>Tab</kbd></span> |
             <span> Save: <kbd>Ctrl</kbd>+<kbd>S</kbd></span> |
-            <span> Correct: <kbd>C</kbd></span> |
-            <span> Incorrect: <kbd>X</kbd></span> |
             <span> Delete: <kbd>D</kbd></span> |
             <span> Cancel: <kbd>Esc</kbd></span>
           </small>
