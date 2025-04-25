@@ -11,7 +11,8 @@ function KeyboardShortcuts({
   selectedText,
   deleteAnnotation,
   navigateToNextDocument,
-  navigateToPreviousDocument
+  navigateToPreviousDocument,
+  updateDocumentStatus
 }) {
   const navigate = useNavigate();
 
@@ -51,15 +52,21 @@ function KeyboardShortcuts({
 
       // Save annotation
       if (selectedAnnotation) {
-        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-          updateAnnotation();
-          e.preventDefault();
-        } else if (e.key === 'd' || e.key === 'D') {
+        if (e.key === 'd' || e.key === 'D') {
           // Delete annotation
           if (deleteAnnotation && window.confirm('Are you sure you want to delete this annotation?')) {
             deleteAnnotation(selectedAnnotation.id);
           }
           e.preventDefault();
+        }
+      } else {
+        // Document-level shortcuts (only when no annotation is selected)
+        if ((e.key === 'c' || e.key === 'C') && updateDocumentStatus) {
+            updateDocumentStatus(true); // Thumbs Up
+            e.preventDefault();
+        } else if ((e.key === 'x' || e.key === 'X') && updateDocumentStatus) {
+            updateDocumentStatus(false); // Thumbs Down
+            e.preventDefault();
         }
       }
 
@@ -88,6 +95,7 @@ function KeyboardShortcuts({
     deleteAnnotation,
     navigateToNextDocument,
     navigateToPreviousDocument,
+    updateDocumentStatus,
     navigate
   ]);
 

@@ -361,6 +361,7 @@ function DocumentView() {
         deleteAnnotation={deleteAnnotation}
         navigateToNextDocument={navigateToNextDocument}
         navigateToPreviousDocument={navigateToPreviousDocument}
+        updateDocumentStatus={updateDocumentStatus}
       />
       
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -582,9 +583,10 @@ function DocumentView() {
             <span>Next Doc: <kbd>J</kbd></span> |
             <span> Prev Doc: <kbd>K</kbd></span> |
             <span> Cycle Annotations: <kbd>Tab</kbd></span> |
-            <span> Save: <kbd>Ctrl</kbd>+<kbd>S</kbd></span> |
-            <span> Delete: <kbd>D</kbd></span> |
-            <span> Cancel: <kbd>Esc</kbd></span>
+            <span> Good Doc: <kbd>C</kbd></span> |
+            <span> Bad Doc: <kbd>X</kbd></span> |
+            <span> Delete Annotation: <kbd>D</kbd></span> |
+            <span> Cancel/Deselect: <kbd>Esc</kbd></span>
           </small>
         </div>
       </div>
