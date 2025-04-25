@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, Button, Form, Card, Badge, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import { FaCheck, FaTimes, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaTrash, FaEdit, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import KeyboardShortcuts from './KeyboardShortcuts';
 import AnnotationFilter from './AnnotationFilter';
 import AnnotationSorter from './AnnotationSorter';
@@ -67,6 +67,19 @@ function DocumentView() {
         setSelectedText('');
     }
   }, [id]);
+
+  // Function to update document status (good/bad)
+  const updateDocumentStatus = useCallback(async (isGood) => {
+    if (!document) return;
+    try {
+      const response = await axios.put(`/api/documents/${id}/status`, { is_good: isGood });
+      setDocument(response.data); // Update local state with the updated document
+      setError(''); // Clear any previous errors
+    } catch (error) {
+      console.error('Error updating document status:', error);
+      setError('Failed to update document status. Please try again.');
+    }
+  }, [id, document]);
 
   // Handle text selection
   const handleTextSelection = () => {
@@ -351,7 +364,26 @@ function DocumentView() {
       />
       
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>{document.title}</h2>
+        <div className="d-flex align-items-center">
+            <h2 className="me-3 mb-0">{document.title}</h2>
+            <Button 
+                variant={document.is_good === true ? "success" : "outline-success"} 
+                size="sm" 
+                onClick={() => updateDocumentStatus(true)}
+                className="me-2"
+                title="Mark document as good"
+            >
+                <FaThumbsUp />
+            </Button>
+            <Button 
+                variant={document.is_good === false ? "danger" : "outline-danger"} 
+                size="sm" 
+                onClick={() => updateDocumentStatus(false)}
+                title="Mark document as bad"
+            >
+                <FaThumbsDown />
+            </Button>
+        </div>
         <Button variant="secondary" onClick={() => navigate('/documents')}>
           Back to Documents
         </Button>
