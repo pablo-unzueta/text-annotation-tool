@@ -6,7 +6,7 @@ echo "Backend will run on http://localhost:8000"
 echo "Frontend will run on http://localhost:3000"
 
 # Start backend server
-cd /Users/pablo/Downloads/files/text-annotation-tool/backend
+cd /Users/punzueta/software/text-annotation-tool/backend
 uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 &
 BACKEND_PID=$!
 
@@ -14,7 +14,7 @@ BACKEND_PID=$!
 sleep 3
 
 # Start frontend server
-cd /Users/pablo/Downloads/files/text-annotation-tool
+cd /Users/punzueta/software/text-annotation-tool
 npx webpack serve --mode development &
 FRONTEND_PID=$!
 

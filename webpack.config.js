@@ -1,3 +1,4 @@
+// webpack.config.js (Corrected)
 module.exports = {
   entry: './frontend/src/index.js',
   output: {
@@ -27,15 +28,17 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: __dirname + '/frontend/public'
+      directory: __dirname + '/frontend/public' // Serves files from this directory
     },
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8000',
-        pathRewrite: { '^/api': '' }
+    port: 3000, // Dev server will run on http://localhost:3000
+    proxy: [ // <-- Changed to an ARRAY
+      {
+        context: ['/api'], // The path(s) to proxy
+        target: 'http://localhost:8000', // Your backend API server
+        pathRewrite: { '^/api': '' }, // Rewrites /api/users to /users before sending to target
+        changeOrigin: true // Good practice: changes the origin of the host header to the target URL
       }
-    },
-    historyApiFallback: true
+    ],
+    historyApiFallback: true // Important for Single Page Applications using HTML5 History API
   }
-}
+};
